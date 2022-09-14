@@ -1,10 +1,17 @@
 const express = require('express')
 const app = express()
+const passport = require('passport')
 const logger = require('morgan')
+const connectDB = require('./config/db')
 
-// Process dotenv configuration
+// Passport configuration
+require('./config/passport')(passport)
+
+// Connect to database
+connectDB()
+
+// Dotenv configuration
 require('dotenv').config({ path: './config/config.env' })
-
 
 
 // Logger configuration
