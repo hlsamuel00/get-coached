@@ -3,6 +3,7 @@ const app = express()
 const passport = require('passport')
 const logger = require('morgan')
 const connectDB = require('./config/db')
+const mainRoutes = require('./routes/main')
 
 // Passport configuration
 require('./config/passport')(passport)
@@ -18,6 +19,9 @@ require('dotenv').config({ path: './config/config.env' })
 if (process.env.NODE_ENV === 'development'){
     app.use(logger(':method :url :status :res[content-length] - :response-time ms :body'))
 }
+
+// Routes
+app.use('/', mainRoutes)
 
 // Listening port configuration
 app.listen(process.env.PORT, () => {
