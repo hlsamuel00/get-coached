@@ -9,21 +9,18 @@ const Coach = new Schema({
         required: true
     },
     image: {
-        type: String,
-        required: true
+        type: String
     },
     bio: {
-        type: String,
-        required: true,
+        type: String
     },
     website: {
-        type: String,
+        type: String
     },
-    status: {
-        type: String,
-        required: true,
-        enum: [],
-        default: ""
+    availableStatus: {
+        type: Boolean,
+        //enum: ["Available", "Not Available"],
+        default: true
     },
     experience: [{
 

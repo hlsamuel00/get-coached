@@ -6,16 +6,14 @@ const Client = new Schema({
     user: {
         type: mongoose.Types.ObjectId, 
         ref: 'BaseUserSchema',
-        required: true
     },
     image: {
         type: String,
     },
-    status: {
-        type: String,
-        required: true,
-        enum: [],
-        default: ""
+    readyStatus: {
+        type: Boolean,
+        //enum: ["Looking", "Not Looking" ],
+        default: false
     }
 })
 
