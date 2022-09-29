@@ -117,6 +117,7 @@ module.exports = {
                 location: req.body.location
             })
 
+            //Coach profile validation (ensuring no exsting profile exists)
             Coach.findOne({ email: req.body.email }, (err, existingUser) => {
                 if(err){
                     next(err)
@@ -156,6 +157,7 @@ module.exports = {
                 location: req.body.location
             })
 
+            //Client profile validation (ensuring no exsting profile exists)
             Client.findOne({ email: req.body.email }, (err, existingUser) => {
                 if(err){
                     next(err)
