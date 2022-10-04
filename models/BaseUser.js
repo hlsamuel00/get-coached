@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 // Options for BaseUserSchema
 const baseOptions = {
     discriminatorKey: "profileType",
-    collection: "role",
+    collection: "User",
     timestamps: true
 }
 

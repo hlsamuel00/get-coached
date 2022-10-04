@@ -6,7 +6,6 @@ const Coach = new Schema({
     user: {
         type: mongoose.Types.ObjectId, 
         ref: 'BaseUserSchema',
-        required: true
     },
     image: {
         type: String
@@ -29,4 +28,4 @@ const Coach = new Schema({
 
 const CoachSignUp = BaseUserSchema.discriminator('coach', Coach)
 
-module.exports = { CoachSignUp }
+module.exports = CoachSignUp

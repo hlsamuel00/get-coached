@@ -1,7 +1,7 @@
 const passport = require('passport')
 const validator = require('validator')
-const Coach = require('../models/UserProfiles/Coach')
-const Client = require('../models/UserProfiles/Client')
+const CoachSignUp = require('../models/UserProfiles/Coach')
+const ClientSignUp = require('../models/UserProfiles/Client')
 
 module.exports = {
     // Get login page
@@ -31,15 +31,15 @@ module.exports = {
 
         passport.authenticate('local', (err, user, info) => {
             if(err){
-                next(err) 
+                return next(err) 
             }
             if(!user){
                 req.flash('errors', info)
-                res.redirect('/login')
+                return res.redirect('/login')
             }
             req.logIn(user, (err) => {
                 if(err){
-                    next(err) 
+                    return next(err) 
                 }
                 req.flash('success', { msg: 'Success! You are logged in.' })
                 res.redirect(req.session.returnTo || '/dashboard')
@@ -57,7 +57,7 @@ module.exports = {
             if(err){
                 console.log('Error: Failed to destroy user session during logout.', err)
                 req.user = null
-                res.redirect('/')
+                return res.redirect('/')
             }
         })
     },
@@ -65,7 +65,7 @@ module.exports = {
     // Get signup page
     getSignup: (req,res) => {
         if(req.user){
-            res.redirect('/dashboard')
+            return res.redirect('/dashboard')
         }
         res.render('signup', {
             title: "Create account"
@@ -74,6 +74,7 @@ module.exports = {
 
     // Process signup request
     postSignup: (req,res,next) => {
+        let user
         const validationErrors = []
         const emailVal = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{1,}$/g
 
@@ -93,17 +94,20 @@ module.exports = {
         if(req.body.password !== req.body.confirmPassword){
             validationErrors.push({ msg: 'Passwords do not match.' })
         }
+        if(!req.body.profile){
+            validationErrors.push({ msg: "Please select a profile type. "})
+        }
         if(validationErrors.length){
+            console.log(validationErrors)
             req.flash('errors', validationErrors)
-            res.redirect('../signup')
+            return res.redirect('../signup')
         }
 
         req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
         
         // New Coach Creation
-        if(req.body.profile = 'Coach'){
-            
-            const coach = new Coach({
+        if(req.body.profile === 'coach'){
+            user = new CoachSignUp({
                 email: req.body.email,
                 password: req.body.password,
                 name:{
@@ -117,22 +121,22 @@ module.exports = {
                 location: req.body.location
             })
 
-            //Coach profile validation (ensuring no exsting profile exists)
-            Coach.findOne({ email: req.body.email }, (err, existingUser) => {
+            //Coach profile validation (ensuring no existing profile exists)
+            CoachSignUp.findOne({ email: req.body.email }, (err, existingUser) => {
                 if(err){
-                    next(err)
+                    return next(err)
                 }
                 if(existingUser){
                     req.flash('errors', { msg: 'Account with that email address already exists.'})
-                    res.redirect('../signup')
+                    return res.redirect('../signup')
                 }
-                coach.save((err) => {
+                user.save((err) => {
                     if(err){
-                        next(err)
+                        return next(err)
                     }
                     req.logIn(user, (err) => {
                         if(err){
-                            next(err)
+                            return next(err)
                         }
                         res.redirect('/dashboard')
                     })
@@ -141,9 +145,8 @@ module.exports = {
 
         }
         // New Client Creation
-        if(req.body.profile = "Client"){
-
-            const client = new Client({
+        if(req.body.profile === "client"){
+            user = new ClientSignUp({
                 email: req.body.email,
                 password: req.body.password,
                 name:{
@@ -157,22 +160,22 @@ module.exports = {
                 location: req.body.location
             })
 
-            //Client profile validation (ensuring no exsting profile exists)
-            Client.findOne({ email: req.body.email }, (err, existingUser) => {
+            //Client profile validation (ensuring no existing profile exists)
+            ClientSignUp.findOne({ email: req.body.email }, (err, existingUser) => {
                 if(err){
-                    next(err)
+                    return next(err)
                 }
                 if(existingUser){
-                    req.flash('errors', { msg: 'Account with that email address already exists.'})
+                    req.flash('errors', { msg: 'Account with that email address already exists.' })
                     res.redirect('../signup')
                 }
-                client.save((err) => {
+                user.save((err) => {
                     if(err){
-                        next(err)
+                        return next(err)
                     }
                     req.logIn(user, (err) => {
                         if(err){
-                            next(err)
+                            return next(err)
                         }
                         res.redirect('/dashboard')
                     })

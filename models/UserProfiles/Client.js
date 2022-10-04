@@ -19,4 +19,4 @@ const Client = new Schema({
 
 const ClientSignUp = BaseUserSchema.discriminator('client', Client)
 
-module.exports = { ClientSignUp }
+module.exports = ClientSignUp

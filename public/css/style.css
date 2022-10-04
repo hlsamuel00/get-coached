@@ -1,0 +1,87 @@
+/* Header Styles */
+header .navbar-nav {
+    --bs-nav-link-padding-y: .25rem;
+    line-height: 1.6rem;
+}
+
+header .navbar-nav .nav-item .nav-link.btn-outline-light{
+    color: #dee2e6;
+    border-color: orange;
+}
+
+header .navbar-nav .nav-item .nav-link.btn-outline-light:hover{
+    background-color: orange;
+}
+
+/* Button Styles */
+
+.btn-orange {
+    color: rgb(33,37,41);
+    background-color: orange;
+    border-color: orange;
+}
+
+.btn-orange:hover{
+    background-color: rgba(255, 166, 0, 0.5) !important;
+    border-color: rgba(255, 166, 0, 0.5) !important;
+}
+
+.btn{
+    border-radius: 2em !important;
+}
+
+/* Footer Styles */
+footer .navbar-nav .nav-link:hover{
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    color: orange;
+}
+footer .form-control{
+    border: none;
+    border-bottom: 1px solid #fff;
+    border-radius: .20rem;
+}
+footer .form-control:focus{
+    border-color: #fff;
+    box-shadow: 0 0 0 0.15rem orange;
+    margin-top: .5rem;
+}
+
+footer form .container{
+    padding: 0%;
+    margin-left: calc(-.05 * var(--bs-gutter-x));
+    margin-top: .6em;
+}
+
+footer div.row{
+    padding-top: 1rem;
+}
+
+footer h5.mb-4{
+    margin-bottom: .5rem !important;
+}
+
+footer address a {
+    color: orange;
+}
+
+footer address a:hover{
+    color: rgba(255, 166, 0, 0.5);
+}
+
+footer ul + h5 + ul a{
+    text-decoration: none;   
+}
+
+footer ul + h5 + ul a:hover{
+    color: orange !important;
+}
+
+.footer-copyright a{
+    text-decoration-style: dotted;
+    color: orange;
+}
+
+.footer-copyright a:hover{
+    color: rgba(255, 166, 0, 0.5);
+}
